@@ -87,7 +87,7 @@ th, td {
         </tr>
         <tr>
             <th class="editable" contenteditable="true" id="team1-name">TEAM 1</th>
-            <td class="set">SET <span class="editable" contenteditable="true">0</span></td>
+            <td class="set">SET <span class="editable" contenteditable="true"></span></td>
             <th class="editable" contenteditable="true" id="team2-name">TEAM 2</th>
         </tr>
         <tr>
@@ -152,6 +152,7 @@ let history = []; // To store the history of scores and values
 let lastAction = null; // To store the last action
 let highlightedElement = null; // To track the currently highlighted element
 
+
 function updateScores() {
     document.getElementById("score1").textContent = score1;
     document.getElementById("score2").textContent = score2;
@@ -190,36 +191,92 @@ document.getElementById("score2").addEventListener("click", function() {
     updateScores();
     addHighlight(this);
 });
-
+// Menambahkan event listener pada tombol dengan ID "timeout1" untuk menambah timeout1 saat tombol diklik
 document.getElementById("timeout1").addEventListener("click", function() {
-    recordHistory();
-    lastAction = "timeout1";
-    timeout1++;
-    updateScores();
+    handleTimeout1();  // Panggil fungsi untuk penambahan timeout1
 });
 
+// Menambahkan event listener pada tombol dengan ID "timeout2" untuk menambah timeout2 saat tombol diklik
 document.getElementById("timeout2").addEventListener("click", function() {
-    recordHistory();
-    lastAction = "timeout2";
-    timeout2++;
-    updateScores();
+    handleTimeout2();  // Panggil fungsi untuk penambahan timeout2
 });
 
+// Menambahkan event listener untuk mendeteksi tombol yang ditekan pada keyboard
+document.addEventListener("keydown", function(event) {
+    // Jika tombol '[' ditekan, jalankan fungsi untuk menambah timeout1
+    if (event.key === "[") {
+        handleTimeout1();
+    }
+    // Jika tombol ']' ditekan, jalankan fungsi untuk menambah timeout2
+    if (event.key === "]") {
+        handleTimeout2();
+    }
+});
+
+// Fungsi untuk menambah nilai timeout1
+function handleTimeout1() {
+    recordHistory();  // Simpan keadaan saat ini ke dalam riwayat
+    lastAction = "timeout1";  // Tetapkan tindakan terakhir sebagai timeout1
+    timeout1++;  // Tambah nilai timeout1
+    updateScores();  // Perbarui tampilan skor
+}
+
+// Fungsi untuk menambah nilai timeout2
+function handleTimeout2() {
+    recordHistory();  // Simpan keadaan saat ini ke dalam riwayat
+    lastAction = "timeout2";  // Tetapkan tindakan terakhir sebagai timeout2
+    timeout2++;  // Tambah nilai timeout2
+    updateScores();  // Perbarui tampilan skor
+}
+
+// Menambahkan event listener pada tombol dengan ID "sub1" untuk menambah sub1 saat tombol diklik
 document.getElementById("sub1").addEventListener("click", function() {
-    recordHistory();
-    lastAction = "sub1";
-    sub1++;
-    updateScores();
+    handleSub1();  // Panggil fungsi untuk penambahan sub1
 });
 
+// Menambahkan event listener pada tombol dengan ID "sub2" untuk menambah sub2 saat tombol diklik
 document.getElementById("sub2").addEventListener("click", function() {
-    recordHistory();
-    lastAction = "sub2";
-    sub2++;
-    updateScores();
+    handleSub2();  // Panggil fungsi untuk penambahan sub2
 });
 
-document.getElementById("reset-btn").addEventListener("click", function() {
+// Menambahkan event listener untuk mendeteksi tombol yang ditekan pada keyboard
+document.addEventListener("keydown", function(event) {
+    // Jika tombol ',' ditekan, jalankan fungsi untuk menambah sub1
+    if (event.key === ",") {
+        handleSub1();
+    }
+    // Jika tombol '.' ditekan, jalankan fungsi untuk menambah sub2
+    if (event.key === ".") {
+        handleSub2();
+    }
+});
+
+// Fungsi untuk menambah nilai sub1
+function handleSub1() {
+    recordHistory();  // Simpan keadaan saat ini ke dalam riwayat
+    lastAction = "sub1";  // Tetapkan tindakan terakhir sebagai sub1
+    sub1++;  // Tambah nilai sub1
+    updateScores();  // Perbarui tampilan skor
+}
+
+// Fungsi untuk menambah nilai sub2
+function handleSub2() {
+    recordHistory();  // Simpan keadaan saat ini ke dalam riwayat
+    lastAction = "sub2";  // Tetapkan tindakan terakhir sebagai sub2
+    sub2++;  // Tambah nilai sub2
+    updateScores();  // Perbarui tampilan skor
+}
+
+
+document.getElementById("reset-btn").addEventListener("click", resetFunction);
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "r" || event.key === "R") {
+        resetFunction();
+    }
+});
+
+function resetFunction() {
     recordHistory();
     score1 = 0;
     score2 = 0;
@@ -233,25 +290,46 @@ document.getElementById("reset-btn").addEventListener("click", function() {
         highlightedElement.classList.remove('highlight');
         highlightedElement = null;
     }
+}
+
+
+// Menambahkan event listener pada tombol dengan ID "undo-btn" untuk menjalankan fungsi undo saat tombol diklik
+document.getElementById("undo-btn").addEventListener("click", undoFunction);
+
+// Menambahkan event listener untuk mendeteksi tombol yang ditekan pada keyboard
+document.addEventListener("keydown", function(event) {
+    // Jika tombol 'u' atau 'U' ditekan, jalankan fungsi undo
+    if (event.key === "u" || event.key === "U") {
+        undoFunction();
+    }
 });
 
-document.getElementById("undo-btn").addEventListener("click", function() {
+// Fungsi untuk membatalkan perubahan terakhir dan mengembalikan nilai-nilai sebelumnya
+function undoFunction() {
+    // Memeriksa apakah ada riwayat perubahan yang tersimpan
     if (history.length > 0) {
+        // Mengambil dan menghapus perubahan terakhir dari riwayat
         const last = history.pop();
+
+        // Mengembalikan skor, timeout, dan nilai substitusi ke keadaan sebelumnya
         score1 = last.score1;
         score2 = last.score2;
         timeout1 = last.timeout1;
         timeout2 = last.timeout2;
         sub1 = last.sub1;
         sub2 = last.sub2;
+
+        // Memperbarui tampilan skor dengan nilai-nilai yang telah dikembalikan
         updateScores();
-        // Clear the highlight
+
+        // Menghapus highlight pada elemen yang disorot sebelumnya, jika ada
         if (highlightedElement) {
             highlightedElement.classList.remove('highlight');
             highlightedElement = null;
         }
     }
-});
+}
+
 
 // Handle keyboard arrow keys
 document.addEventListener("keydown", function(event) {
