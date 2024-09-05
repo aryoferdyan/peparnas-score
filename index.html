@@ -84,11 +84,29 @@ th, td {
     <table>
 
         <tr>
-            <td><img src="logo2.png" alt="3" width="150"></td>
             <td>
+                <div style="position: relative; display: inline-block;">
+                    <img id="logo2" src="logo2.png" alt="3" width="150" onclick="document.getElementById('file-input-logo2').click()">
+                    <input type="file" id="file-input-logo2" style="display: none;" accept="image/*" onchange="loadImage(event, 'logo2')">
+                </div>
             </td>
-            <td><img src="logo3.png" alt="Foto 4" width="150"></td>
+            <td></td>
+            <td>
+                <div style="position: relative; display: inline-block;">
+                    <img id="logo3" src="logo3.png" alt="Foto 4" width="150" onclick="document.getElementById('file-input-logo3').click()">
+                    <input type="file" id="file-input-logo3" style="display: none;" accept="image/*" onchange="loadImage(event, 'logo3')">
+                </div>
+            </td>
         </tr>
+        
+        <script>
+            function loadImage(event, imgId) {
+                const image = document.getElementById(imgId);
+                image.src = URL.createObjectURL(event.target.files[0]);
+                image.onload = () => URL.revokeObjectURL(image.src); // Release memory when image is loaded
+            }
+        </script>
+        
         <tr>
             <th class="editable" contenteditable="true" id="team1-name">JAWA BARAT</th>
             <td class="set">SET <span class="editable" contenteditable="true"></span></td>
