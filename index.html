@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* height: 100vh;  */
+    height: 100vh; 
     /* Full viewport height */
     overflow: hidden; /* Prevent overflow */
 }
@@ -79,10 +79,10 @@ th, td {
 
 
 
-    <img src="logo.png" alt="Deskripsi Gambar" style="width: 100%;">
-
+    <img src="logo.png" alt="Deskripsi Gambar" style="width: 95%;">
+    
     <table>
-
+        
         <tr>
             <td>
                 <div style="position: relative; display: inline-block;">
@@ -90,7 +90,10 @@ th, td {
                     <input type="file" id="file-input-logo2" style="display: none;" accept="image/*" onchange="loadImage(event, 'logo2')">
                 </div>
             </td>
-            <td></td>
+            <td>
+                <!-- <img src="peparnas.webp" alt="Deskripsi Gambar" style="width: 150px;"> -->
+
+            </td>
             <td>
                 <div style="position: relative; display: inline-block;">
                     <img id="logo3" src="logo3.png" alt="Foto 4" width="150" onclick="document.getElementById('file-input-logo3').click()">
