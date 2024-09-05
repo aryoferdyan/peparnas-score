@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    /* height: 100vh;  */
     /* Full viewport height */
     overflow: hidden; /* Prevent overflow */
 }
@@ -28,7 +28,7 @@ table {
    /* max-width: 1280px;  Optional: max-width to avoid excessive stretching */
     border-collapse: collapse;
     table-layout: fixed;
-    margin: 100 auto;
+    margin:  auto;
 }
 
 th, td {
@@ -77,23 +77,22 @@ th, td {
 </head>
 <body class="dark-mode">
 
+
+
     <img src="logo.png" alt="Deskripsi Gambar" style="width: 100%;">
 
     <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+
         <tr>
             <td><img src="logo2.png" alt="3" width="150"></td>
-            <td></td>
+            <td>
+            </td>
             <td><img src="logo3.png" alt="Foto 4" width="150"></td>
         </tr>
         <tr>
-            <th class="editable" contenteditable="true" id="team1-name">TEAM 1</th>
+            <th class="editable" contenteditable="true" id="team1-name">JAWA BARAT</th>
             <td class="set">SET <span class="editable" contenteditable="true"></span></td>
-            <th class="editable" contenteditable="true" id="team2-name">TEAM 2</th>
+            <th class="editable" contenteditable="true" id="team2-name">JAWA TENGAH</th>
         </tr>
         <tr>
             <td class="score editable" id="score1">0</td>
@@ -111,7 +110,7 @@ th, td {
             <td class="sub editable" id="sub2">0</td>
         </tr>
     </table>
-<br>
+
 <br>
 <br>
     <table>
@@ -146,8 +145,8 @@ th, td {
     </table>
 <br>
 <br>
-    <button id="reset-btn">Reset Scores</button>
-    <button id="undo-btn">Undo Last Action</button>
+    <button id="reset-btn" hidden>Reset Scores</button>
+    <button id="undo-btn" hidden>Undo Last Action</button>
 
     <script>
 let score1 = 0;
