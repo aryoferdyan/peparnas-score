@@ -304,7 +304,9 @@ function resetFunction() {
     timeout2 = 0;
     sub1 = 0;
     sub2 = 0;
-    set = "Isi angka Set disini";
+        // Set the "Set" text to "Wajib Diiisi Angka"
+    document.querySelector(".set span").textContent = "Wajib Diiisi Angka";
+
     updateScores();
     // Clear the highlight
     if (highlightedElement) {
